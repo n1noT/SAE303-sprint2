@@ -11,8 +11,6 @@ let Events = {
 let M = {};
 
 
-//Itération 1
-
 
 M.getEvents = function(annee) {
     if ( annee in Events ) {
@@ -21,21 +19,77 @@ M.getEvents = function(annee) {
     return null;
 }
 
-M.getAllEvents = function() {
-    let allEvents = [];
-    for ( let annee in Events ) {
-        allEvents = allEvents.concat(Events[annee].toObject());
+/* 
+M.getConcatEvents
+
+Fonction qui concatenne tous les événements de Events dans un seul tableau
+
+*/
+
+M.getConcatEvents = function() {
+
+    let allEv = []
+
+    for(let ev in Events){
+        allEv = allEv.concat(Events[ev].toObject());
+
     }
-    return allEvents;
+
+    return allEv;
+    
+}
+
+/* 
+M.filterEventsByText
+
+Fonction qui filtre les événements suivant les éléments d'une recherche et qui retourne une copie du tableau contenant ces événements
+
+input : chaine de caractère qui va servir à filtrer
+
+*/
+
+M.filterEventsByText = function (input) {
+    let res = [];
+
+    let inputAllTerms = input.split(" ");
+
+    for (let events of M.getConcatEvents()) {
+        let match = true;  
+
+        for (let inp of inputAllTerms) {
+            let inlcus = false;  
+
+            for (let elt in events) {
+                if (events[elt].toString().toLowerCase().includes(inp.toLowerCase())) {
+                    inlcus = true;
+                    break;  
+                }
+            }
+
+            if (inlcus == false) {
+                match = false;
+                break;  
+            }
+        }
+
+        if (match == true ) {
+            if (res.includes(events) == false) {
+                res.push(events);
+            }
+        }
+    }
+
+    return structuredClone(res);
 }
 
 
+
 M.init = async function() {
-    let data1 = await fetch('./data/mmi1.ics');
-    data1 = await data1.text();
-    data1 = ical.parseICS(data1);
+    let data = await fetch('./data/mmi1.ics');
+    data = await data.text();
+    data = ical.parseICS(data);
     Events.mmi1 = new EventManager('mmi1', 'MMI 1', 'Agenda des MMI 1');
-    Events.mmi1.addEvents(data1);
+    Events.mmi1.addEvents(data);
 
     let data2 = await fetch('./data/mmi2.ics');
     data2 = await data2.text();
@@ -53,9 +107,6 @@ M.init = async function() {
 export { M };
 
 
-
-
-
 /*
     On notera que si tout ce qui est dans ce fichier concerne le modèle, seul ce qui est dans M est exporté (et donc accessible depuis l'extérieur).
     C'est une façon de faire qui permet de garder privé les données "réelles" qui sont dans Events mais dont la visibilité est limitée à ce module/fichier.
@@ -64,5 +115,5 @@ export { M };
     L'utilisation des modules javascript nous permet ici de choisir ce que l'on veut rendre public ou privé.
     C'est une autre façon d'implémenter le concept d'encapsulation sans avoir à utiliser les classes.
     A noter qu'on aurait pu faire une classe "Model" mais dans la mesure où l'on n'aurait qu'une seule instance de Model, ce n'est pas vraiment utile.
-    mdn array concat filters 
+    
 */

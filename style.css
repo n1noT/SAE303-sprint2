@@ -1,25 +1,292 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap');
 
+:root{
+    --purple : #2A0940;
+    --purple-secondary: #47137a;
+    --yellow: #EAF205;
+    --light-purple: #9757d6; 
+    --white: #fafafa;
+    --grey: #dfdfdf;
+    --dark-grey: #eeeeee;
+    --darker-grey: rgb(173, 173, 173);
+    --black: #31002b;
+
+    --button-bg: var(--grey);
+    --button-bg-hover: var(--purple-secondary);
+    --button-bg-hover-secondary: var(--dark-grey);
+    --button-text: var(--black);
+    --button-text-hover: var(--white);
+    --button-border: var(--black);
+
+    --background: var(--white);
+
+    --outline : var(--black);
+    
+
+    --ff : 'Outfit';
+}
+
+
+/* Box sizing rules */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
-* {
+/* Remove default padding */
+ul[class],
+ol[class] {
+  padding: 0;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+figure,
+blockquote,
+dl,
+dd {
   margin: 0;
 }
 
+/* Set core root defaults */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
 body {
-  font-family: "Roboto", sans-serif;
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
 }
 
+/* Remove list styles on ul, ol elements with a class attribute */
+ul{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
 img,
-picture,
-video,
-canvas,
-svg {
-  display: block;
+picture {
   max-width: 100%;
+  display: block;
 }
 
+/* Natural flow and rhythm in articles by default */
+article > * + * {
+  margin-top: 1em;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Blur images when they have no alt attribute */
+img:not([alt]) {
+  filter: blur(10px);
+}
+
+/* Remove all animations and transitions for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+body{
+    font-family: var(--ff);
+    background-color: var(--background) ;
+    line-height: 1rem;
+    color: var(--button-text);
+}
+
+.header__nav{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+    max-width: 60rem;
+    padding: .5rem;
+}
+
+.header__list{
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+
+}
+
+
+button{
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: none;
+    padding: .5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover{
+  background-color: var(--button-bg-hover-secondary);
+  color: var(--button-text);
+}
+
+.selected{
+    background-color: var(--button-bg-hover);
+    color: var(--button-text-hover);
+}
+.selected:hover{
+    background-color: var(--button-bg-hover);
+    color: var(--button-text-hover);
+}
+
+.calendar{
+    height: 50rem;
+}
+
+.move-img{
+  height: 1rem;
+  width: 1rem;
+}
+
+
+.year{
+  gap: .5rem;
+  flex-direction: column;
+}
+
+.year__list{
+  gap: 1.5rem;
+}
+
+.year::after {
+  content: "";
+  display: block;
+  height: 2px;
+  width: 100%; 
+  background-color: var(--black);
+  margin-top: 1rem; 
+  opacity: 20%;
+}
+
+.year__list-item{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .2rem;
+  padding: .2rem;
+  padding-right: .5rem;
+  border-radius: 5px;
+  user-select: none;
+  
+}
+
+label{
+  cursor: pointer;
+}
+
+.year__list-item:hover{
+  background-color: var(--white);
+
+}
+
+.year__list-checkbox{
+  appearance: none;
+  outline: 1px solid grey;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 100%;
+  cursor: pointer;
+}
+
+.mmi1-check:checked{
+  background-color: #640900;
+  outline: 1px solid #640900;
+}
+
+.mmi2-check:checked{
+  background-color: #002464;
+  outline: 1px solid #002464;
+}
+
+.mmi3-check:checked{
+  background-color: #096400;
+  outline: 1px solid #096400;
+}
+
+.header__filter{
+  display: flex;
+  flex-direction: column;
+  background-color: var(--dark-grey);
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 10px;
+
+}
+
+.header__select{
+  border-radius: 5px;
+  padding: .2rem;
+}
+
+.header__search{
+  border-radius: 5px;
+  padding: .2rem .5rem;
+  border: 1px solid grey;
+}
+
+
+@media (min-width: 768px){
+
+  .header__nav{
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 4rem;
+    max-width: none;
+    flex-wrap: wrap;
+  }
+
+  .year{
+    display: flex;
+    flex-direction: row;
+  }
+
+  .header__filter{
+    flex-direction: row;
+
+  
+  }
+
+  .year::after {
+    margin: 0 2rem;
+    height: 100%;
+    width: 2px; 
+   
+  }
+  
+  
+}

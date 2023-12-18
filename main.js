@@ -30,11 +30,11 @@ C.init = function(){
     },
 
     subtitle: {
-        text: '2021'
+        text: 'MMI Limoges'
     },
 
     title: {
-        text: 'Top 10 Countries by Population'
+        text: 'Heures de cours par salle'
     },
 
     tooltip: {
@@ -42,17 +42,20 @@ C.init = function(){
     },
 
     xAxis: {
+      title: {
+        text: 'Salles'
+    },
         type: 'category'
     },
 
     yAxis: {
         title: {
-            text: 'Population'
+            text: 'Heures'
         }
     },
 
     series: [{
-        name: 'Population',
+        name: 'Heures',
         data: M.getRoomByHours(),
     }]
 

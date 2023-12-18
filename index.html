@@ -5,7 +5,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MMI Charts</title>
     <link rel="stylesheet" href="style.css">
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/dumbbell.js"></script>
+    <script src="https://code.highcharts.com/modules/lollipop.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
   </head>
   <body>
+    <div id="container" style="width:100%; height:400px;"></div>
+
+    <script>
+     
+        // Data retrieved from https://worldpopulationreview.com/countries
+        Highcharts.chart('container', {
+
+chart: {
+    type: 'lollipop'
+},
+
+accessibility: {
+    point: {
+        valueDescriptionFormat: '{index}. {xDescription}, {point.y}.'
+    }
+},
+
+legend: {
+    enabled: false
+},
+
+subtitle: {
+    text: '2021'
+},
+
+title: {
+    text: 'Top 10 Countries by Population'
+},
+
+tooltip: {
+    shared: true
+},
+
+xAxis: {
+    type: 'category'
+},
+
+yAxis: {
+    title: {
+        text: 'Heures'
+    }
+},
+
+series: [{
+    name: 'Heures',
+    data: [{
+        name: '101',
+        y: 150
+    }, {
+        name: '102',
+        y: 110
+    }, {
+        name: '103',
+        y: 90
+    }, {
+        name: '115',
+        y: 80
+    }, {
+        name: 'R01',
+        y: 67
+    }, {
+        name: 'R02',
+        y: 50
+    }, {
+        name: 'R03',
+        y: 38
+    }, {
+        name: 'R04',
+        y: 25
+    }, {
+        name: 'ADM132',
+        y: 15
+    }, {
+        name: 'Autres',
+        y: 10
+    }]
+}]
+
+});
+
+    </script>
   </body>
 </html>

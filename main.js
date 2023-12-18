@@ -11,84 +11,85 @@ import Highcharts from 'highcharts';
 
 let C = {};
 
-C.init = function(){
-  document.addEventListener('DOMContentLoaded', function () {
-    const chart =Highcharts.chart('container', {
+C.init = function(){};
+  
 
-      chart: {
-          type: 'bar'
-      },
+Highcharts.chart('container', {
+
+  chart: {
+      type: 'bar'
+  },
   
-      accessibility: {
-          point: {
-              valueDescriptionFormat: '{index}. {xDescription}, {point.y}.'
-          }
-      },
+  accessibility: {
+      point: {
+          valueDescriptionFormat: '{index}. {xDescription}, {point.y}.'
+      }
+  },
   
-      legend: {
-          enabled: false
-      },
+  legend: {
+      enabled: false
+  },
   
-      subtitle: {
-          text: '2021'
-      },
+  subtitle: {
+      text: 'MMI'
+  },
   
+  title: {
+      text: 'Volume horaire par salle'
+  },
+  
+  tooltip: {
+      shared: true
+  },
+  
+  xAxis: {
+      type: 'category'
+  },
+  
+  yAxis: {
       title: {
-          text: 'Top 10 Countries by Population'
-      },
+          text: 'Heures'
+      }
+  },
   
-      tooltip: {
-          shared: true
-      },
-  
-      xAxis: {
-          type: 'category'
-      },
-  
-      yAxis: {
-          title: {
-              text: 'Population'
-          }
-      },
-  
-      series: [{
-          name: 'Population',
-          data: [{
-              name: 'China',
-              y: 1444216107
-          }, {
-              name: 'India',
-              y: 1393409038
-          }, {
-              name: 'United States',
-              y: 332915073
-          }, {
-              name: 'Indonesia',
-              y: 276361783
-          }, {
-              name: 'Pakistan',
-              y: 225199937
-          }, {
-              name: 'Brazil',
-              y: 213993437
-          }, {
-              name: 'Nigeria',
-              y: 211400708
-          }, {
-              name: 'Bangladesh',
-              y: 166303498
-          }, {
-              name: 'Russia',
-              y: 145912025
-          }, {
-              name: 'Mexico',
-              y: 130262216
-          }]
+  series: [{
+      name: 'Heures',
+
+      // getRoomByOrder();
+      data: [{
+          name: '101',
+          y: 150
+      }, {
+          name: '102',
+          y: 110
+      }, {
+          name: '103',
+          y: 90
+      }, {
+          name: '115',
+          y: 80
+      }, {
+          name: 'R01',
+          y: 67
+      }, {
+          name: 'R02',
+          y: 50
+      }, {
+          name: 'R03',
+          y: 38
+      }, {
+          name: 'R04',
+          y: 25
+      }, {
+          name: 'ADM132',
+          y: 15
+      }, {
+          name: 'Autres',
+          y: 10
       }]
+  }]
   
   });
-  });
-};
 
 console.log('oui')
 

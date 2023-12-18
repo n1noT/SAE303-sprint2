@@ -82,6 +82,14 @@ M.filterEventsByText = function (input) {
     return structuredClone(res);
 }
 
+M.getRoomByHours = function(){
+    let allEvents = M.getConcatEvents()
+
+    for(let event of allEvents){
+
+    }
+}
+
 
 
 M.init = async function() {

@@ -4,5 +4,5 @@ export default {
     build: {
     target: 'esnext'
     },
-    base: '~toutain4/dist/'
+    // base: '~toutain4/dist/'
     }

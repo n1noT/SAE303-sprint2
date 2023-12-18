@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MMI Calendar</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+  
+    <div>
+      <header>
+        <nav class="nav">
+          <a href="#" id="openBtn" class="filters">
+            <h2>Filters</h2>
+          </a>
+          <section>
+            <button id="day">Day</button>
+            <button id="week">Week</button>
+            <button id="month">Month</button>
+          </section>
+          <section>
+            <button id="previous_week">&lt;</button>
+            <button id="current_week">Today</button>
+            <button id="next_week">></button>
+          </section>
+        </nav>
+        <div id="mySidenav" class="sidenav">
+          <a id="closeBtn" href="#" class="close">×</a>
+          <ul>
+            <li>
+              <h3>Years</h3>
+              <section id="years" class="years">
+                <input type="checkbox" id="year" value="mmi1">MMI 1</input>
+                <input type="checkbox" id="year" value="mmi2">MMI 2</input>
+                <input type="checkbox" id="year" value="mmi3">MMI 3</input>
+              </section>
+            </li>
+            <li id="groups">
+              <h3>Groups</h3>
+              <section>
+                <select name="groups" id="allgroup">
+                </select>
+              </section>
+            </li>
+            <li>
+              <h3>Search</h3>
+              <section id="searchs">
+                <input type="text" id="search" placeholder="Rechercher un cours">
+              </section>
+            </li>
+          </ul>
+        </div>
+
+        <template id="group">
+          <option value="{{group}}">{{group}}</option>
+        </template>
+      </header>
+
+      <main id="calendar" style="height: 100vh"></main>
+    </div>
+
+
+
+
+    <script type="module" src="/main.js"></script>
+    
+  </body>
+</html>

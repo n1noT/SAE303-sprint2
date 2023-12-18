@@ -1,0 +1,196 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Sidenav menu */
+.sidenav {
+  height: 100%;
+  width: 16rem;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: -16rem;
+  background-color: #f4f4f4;
+  padding-top: 3.75rem;
+  transition: left 0.5s ease;
+}
+
+/* Sidenav menu links */
+.sidenav a {
+  padding: 0.5rem 0.5rem 0.5rem 2rem;
+  text-decoration: none;
+  font-size: 1.5625rem;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #111;
+}
+
+.sidenav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 1.2rem 2rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 2rem;
+}
+
+.sidenav ul li {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 0.5rem;
+}
+
+.sidenav ul li h3 {
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+/* Active class */
+.sidenav.active {
+  left: 0;
+}
+
+/* Close btn */
+.sidenav .close {
+  position: absolute;
+  top: 0.4375rem;
+  right: 1.5625rem;
+  font-size: 1.625rem;
+}
+
+/* Icône burger */
+.burger-icon span {
+  display: block;
+  width: 1.5625rem;
+  height: 0.1875rem;
+  background-color: rgb(47, 47, 47);
+  margin: 0.3125rem 0;
+}
+
+.nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 0.3125rem 2rem;
+}
+
+.filters h2 {
+  font-size: 0.8rem;
+  /*background-color: greenyellow;*/
+  color: #000000;
+  font-weight: 400;
+  text-decoration: underline;
+}
+
+.filters {
+  color: #000000;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.filters:hover h2 {
+  color: #414141ba;
+}
+
+button {
+  text-decoration: none;
+  padding: 0.2rem 0.6rem;
+  color: #000000;
+  background-color: #ffffff;
+  border-radius: 0.7rem;
+  -webkit-border-radius: 0.7rem;
+  -moz-border-radius: 0.7rem;
+  border: 1px solid #00000038;
+  text-align: center;
+}
+
+button:hover {
+  background-color: #f4f4f4;
+  color: #000000;
+  cursor: pointer;
+}
+
+button:active {
+  border: 1px solid #00000008;
+}
+
+select {
+  text-decoration: none;
+  padding: 0.2rem 0.3rem;
+  color: #000000;
+  background-color: #ffffff;
+  border-radius: 0.7rem;
+  -webkit-border-radius: 0.7rem;
+  -moz-border-radius: 0.7rem;
+  border: 1px solid #00000038;
+  text-align: start;
+}
+
+input[type="text"] {
+  text-decoration: none;
+  padding: 0.35rem 0.6rem;
+  color: #000000;
+  background-color: #ffffff;
+  border-radius: 0.7rem;
+  -webkit-border-radius: 0.7rem;
+  -moz-border-radius: 0.7rem;
+  border: 1px solid #00000038;
+  text-align: start;
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  cursor: pointer;
+  border: solid 1px;
+  height: 18px;
+  width: 18px;
+  border: none;
+  background: white;
+  border-radius: 50%;
+  border: 1px solid #00000038;
+}
+input[type="checkbox"]:hover {
+  background: #f4f4f4;
+}
+
+input[type="checkbox"]:checked {
+  background: #00000095;
+  border: solid 4px rgb(255, 255, 255);
+}
+
+.years {
+  display: flex;
+  flex-direction: row;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  align-items: center;
+}

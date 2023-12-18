@@ -1,95 +1,64 @@
 import { M } from "./js/model.js";
-import { V } from "./js/view.js";
+// import { V } from "./js/view.js";
 
 import Highcharts from 'highcharts';
    
 
 // loadind data (and wait for it !)
-// await M.init();
-
+await M.init();
 
 
 let C = {};
 
-C.init = function(){
-  document.addEventListener('DOMContentLoaded', function () {
-    const chart =Highcharts.chart('container', {
 
-      chart: {
-          type: 'bar'
-      },
-  
-      accessibility: {
-          point: {
-              valueDescriptionFormat: '{index}. {xDescription}, {point.y}.'
-          }
-      },
-  
-      legend: {
-          enabled: false
-      },
-  
-      subtitle: {
-          text: '2021'
-      },
-  
-      title: {
-          text: 'Top 10 Countries by Population'
-      },
-  
-      tooltip: {
-          shared: true
-      },
-  
-      xAxis: {
-          type: 'category'
-      },
-  
-      yAxis: {
-          title: {
-              text: 'Population'
-          }
-      },
-  
-      series: [{
-          name: 'Population',
-          data: [{
-              name: 'China',
-              y: 1444216107
-          }, {
-              name: 'India',
-              y: 1393409038
-          }, {
-              name: 'United States',
-              y: 332915073
-          }, {
-              name: 'Indonesia',
-              y: 276361783
-          }, {
-              name: 'Pakistan',
-              y: 225199937
-          }, {
-              name: 'Brazil',
-              y: 213993437
-          }, {
-              name: 'Nigeria',
-              y: 211400708
-          }, {
-              name: 'Bangladesh',
-              y: 166303498
-          }, {
-              name: 'Russia',
-              y: 145912025
-          }, {
-              name: 'Mexico',
-              y: 130262216
-          }]
-      }]
-  
-  });
-  });
+
+C.init = function(){
+  Highcharts.chart('it-1', {
+
+    chart: {
+        type: 'bar'
+    },
+
+    accessibility: {
+        point: {
+            valueDescriptionFormat: '{index}. {xDescription}, {point.y}.'
+        }
+    },
+
+    legend: {
+        enabled: false
+    },
+
+    subtitle: {
+        text: '2021'
+    },
+
+    title: {
+        text: 'Top 10 Countries by Population'
+    },
+
+    tooltip: {
+        shared: true
+    },
+
+    xAxis: {
+        type: 'category'
+    },
+
+    yAxis: {
+        title: {
+            text: 'Population'
+        }
+    },
+
+    series: [{
+        name: 'Population',
+        data: M.getRoomByHours(),
+    }]
+
+});
 };
 
-console.log('oui')
+
 
 C.init()

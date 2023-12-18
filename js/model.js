@@ -8,7 +8,23 @@ let Events = {
     mmi3: null
 }
 
+let Salles = {
+    '101': [],
+    '102': [],
+    '103': [],
+    'ADM132': [],
+    'R01': [],
+    'R02': [],
+    'R03': [],
+    'R04': [],
+    'Labo': [],
+    'Studio': [],
+    
+}
+
 let M = {};
+
+
 
 
 
@@ -82,12 +98,19 @@ M.filterEventsByText = function (input) {
     return structuredClone(res);
 }
 
-M.getRoomByHours = function(){
-    let allEvents = M.getConcatEvents()
+/*
 
-    for(let event of allEvents){
-        
+M.getSalle
+
+Fonction qui donne un tableau d'objets events selon le paramètre s (nom d'une salle)
+
+*/
+
+M.getSalle = function(s) {
+    if ( s in Salles ) {
+        return Salles[s];
     }
+    return null;
 }
 
 
@@ -110,7 +133,47 @@ M.init = async function() {
     data3 = ical.parseICS(data3);
     Events.mmi3 = new EventManager('mmi3', 'MMI 3', 'Agenda des MMI 3');
     Events.mmi3.addEvents(data3);
+
+    let all = M.getConcatEvents();
+    
+    for(let s in Salles){
+        Salles[s] = all.filter((event)=>{return event.location==s});
+    
+    }  
+    
+
 }
+
+/*
+
+M.getRoomByHours
+
+Fonction qui donne un tableau d'objet avec comme paramètres name (nom de la salle) et y (nombres d'heures de cette salle qui est aussi sa coordonnées sur les courbes). Les objets sont triés par ordre décroissant selon le total d'heures associé.
+
+*/
+
+M.getRoomByHours = function(){
+    let items = []
+
+    for(let s in Salles){
+        let total = 0
+        for(let ev of Salles[s]){
+            total += ev.duration.hours
+        }
+        // Coordonnées de la salle
+        let salleCoor = {
+            name: s,
+            y: total
+        };
+
+        items.push(salleCoor);
+    }
+    // Tri par ordre décroissant selon le total d'heures
+    items.sort((a, b) => b.y - a.y)
+
+    return items
+}
+
 
 export { M };
 

@@ -174,6 +174,49 @@ M.getRoomByHours = function(){
     return items
 }
 
+M.getRoomNames = function(s) {
+    let tab = []
+    for( s in Salles ) {
+        tab.push(s);
+    }
+    return tab;
+}
+
+M.getRoomByGroups = function(){
+    let items = []
+
+    let years = ['BUT1', 'BUT2', 'BUT3']
+
+    //boucle les années
+    for(let y of years){
+        let data = []
+        //boucle les salles
+        for(let s in Salles){
+        let total = 0
+            //boucle les events par salles
+            for(let ev of Salles[s]){
+                //Si l'année de l'event corespond à l'année choisi
+                if(ev.year == y){
+                    total += ev.duration.hours
+                    
+                }
+            } 
+            
+            data.push(total)
+
+        }
+        let yearCoor = {
+            name: y,
+            data: data //liste des totaux par salle selon l'année dans l'ordre de la base
+        
+        };
+        items.push(yearCoor);
+          
+    }
+
+    return items
+}
+
 
 export { M };
 

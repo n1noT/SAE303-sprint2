@@ -8,6 +8,7 @@ class Event {
     #end;
     #location;
     #groups;
+    #year;
     #type;
     #ressource;
     #person;
@@ -24,6 +25,11 @@ class Event {
         this.#groups = summary.slice(summary.lastIndexOf(',')+1);
         this.#groups = this.#groups.split('.');
         this.#groups = this.#groups.map( gr => gr.replace(/\s/g, "") );
+
+        this.#year = this.#groups.slice(this.#groups.indexOf());
+        this.#year = this.#year[0].split('-')[0];
+        
+        
 
         if( summary.includes('TD') ){
             this.#type = "TD";
@@ -116,6 +122,7 @@ class Event {
             end: this.#end,
             location: this.#location,
             groups: this.#groups,
+            year: this.#year,
             type: this.#type,
             ressource: this.#ressource,
             person: this.#person,

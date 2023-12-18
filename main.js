@@ -13,6 +13,7 @@ let C = {};
 
 
 C.init = function(){
+  // Itération 1
   Highcharts.chart('it-1', {
 
     chart: {
@@ -60,8 +61,42 @@ C.init = function(){
     }]
 
 });
+
+// Itération 1
+  Highcharts.chart('it-2', {
+  chart: {
+      type: 'bar'
+  },
+  title: {
+      text: 'Volume horaire par année de formation'
+  },
+  xAxis: {
+      categories: M.getRoomNames(),
+      title: {
+        text: 'Salles'
+    }
+  },
+  yAxis: {
+      min: 0,
+      title: {
+          text: 'Heures'
+      }
+  },
+  legend: {
+      reversed: true
+  },
+  plotOptions: {
+      series: {
+          stacking: 'normal',
+          dataLabels: {
+              enabled: true
+          }
+      }
+  },
+  series: M.getRoomByGroups()
+});
 };
 
-
+console.log(M.getRoomByGroups())
 
 C.init()

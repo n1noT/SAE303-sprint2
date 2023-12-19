@@ -274,6 +274,18 @@ Fonction qui retourne un tableau d'objet selon le paramètre roomName (nom de la
 
 */
 
+function couleurAleatoire() {
+    // Générer des valeurs aléatoires pour les composantes RGB
+    var rouge = Math.floor(Math.random() * 256);
+    var vert = Math.floor(Math.random() * 256);
+    var bleu = Math.floor(Math.random() * 256);
+
+    // Construire la chaîne CSS pour la couleur (format RGB)
+    var couleur = "rgb(" + rouge + "," + vert + "," + bleu + ")";
+
+    return couleur;
+}
+
 M.getRessourceByRoom = function(roomName){
 
     let allEvtsOfRoom = Salles[roomName]
@@ -282,14 +294,12 @@ M.getRessourceByRoom = function(roomName){
 
     let type = ['CM', 'TD', 'TP', 'Others']
     
-    let color = 0;
-    
     let items = [{
         id: 'Semestre 1',
         parent: '',
         name: 'Semestre 1',
         value: 100,
-        color:  '#' + color
+        color:  'rgb(255, 255, 255)'
       }]
 
     // heure total pour une salle
@@ -314,7 +324,7 @@ M.getRessourceByRoom = function(roomName){
             parent: 'Semestre 1',
             name: res,
             value: totalDurationByRes,
-            color: '#' + color
+            color: couleurAleatoire()
                     
         };
 
@@ -343,7 +353,6 @@ M.getRessourceByRoom = function(roomName){
                 parent: res,
                 name: t,
                 value: totalDurationBytype,
-                color: '#' + color
                         
             };
     
@@ -352,7 +361,6 @@ M.getRessourceByRoom = function(roomName){
 
             }
     
-            color += 27
     
         }
 

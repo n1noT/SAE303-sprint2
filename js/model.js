@@ -220,18 +220,18 @@ M.getRoomByYear = function(){
 M.getRoomByType= function(){
     let items = []
 
-    let years = ['CM', 'TD', 'TP']
+    let type = ['CM', 'TD', 'TP']
 
-    //boucle les années
-    for(let y of years){
+    //boucle les types
+    for(let t of type){
         let data = []
         //boucle les salles
         for(let s in Salles){
         let total = 0
             //boucle les events par salles
             for(let ev of Salles[s]){
-                //Si l'année de l'event corespond à l'année choisi
-                if(ev.type == y){
+                //Si le type de l'event correspond au type choisi
+                if(ev.type == t){
                     total += ev.duration.hours
                     
                 }
@@ -240,12 +240,12 @@ M.getRoomByType= function(){
             data.push(total)
 
         }
-        let yearCoor = {
-            name: y,
-            data: data //liste des totaux par salle selon l'année dans l'ordre de la base
+        let typeCoor = {
+            name: t,
+            data: data //liste des totaux par salle selon le type dans l'ordre de la base
         
         };
-        items.push(yearCoor);
+        items.push(typeCoor);
           
     }
 

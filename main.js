@@ -13,6 +13,15 @@ let C = {};
 
 
 C.init = function(){
+
+    let data = []
+
+    let se = document.querySelector("#selectYT");
+    se.addEventListener("change", C.handler_changeOnData)
+
+
+
+
   // Itération 1
   Highcharts.chart('it-1', {
 
@@ -62,41 +71,61 @@ C.init = function(){
 
 });
 
-// Itération 1
-  Highcharts.chart('it-2', {
-  chart: {
-      type: 'bar'
-  },
-  title: {
-      text: 'Volume horaire par année de formation'
-  },
-  xAxis: {
-      categories: M.getRoomNames(),
-      title: {
-        text: 'Salles'
-    }
-  },
-  yAxis: {
-      min: 0,
-      title: {
-          text: 'Heures'
-      }
-  },
-  legend: {
-      reversed: true
-  },
-  plotOptions: {
-      series: {
-          stacking: 'normal',
-          dataLabels: {
-              enabled: true
-          }
-      }
-  },
-  series: M.getRoomByGroups()
-});
+// Itération 2
+C.createChart2(M.getRoomByYear())
+ 
 };
 
-console.log(M.getRoomByGroups())
+C.createChart2 = function(data){
+    Highcharts.chart('it-2', {
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: 'Volume horaire par année de formation'
+        },
+        xAxis: {
+            categories: M.getRoomNames(),
+            title: {
+              text: 'Salles'
+          }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Heures'
+            }
+        },
+        legend: {
+            reversed: true
+        },
+        plotOptions: {
+            series: {
+                stacking: 'normal',
+                dataLabels: {
+                    enabled: true
+                }
+            }
+        },
+        series: data
+      });
+}
+
+C.handler_changeOnData = function(ev){
+    console.log(ev)
+        if(ev.target.value == 'years'){
+            let data = M.getRoomByYear()
+       
+            C.createChart2(data);
+        }
+
+        if(ev.target.value == 'type'){
+            let data = M.getRoomByType()
+            
+            C.createChart2(data);
+        }
+
+}
+
 
 C.init()

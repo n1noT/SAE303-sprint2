@@ -4,9 +4,13 @@ import { M } from "./js/model.js";
 import Highcharts from 'highcharts';
 
 import HighchartsHeatmap from 'highcharts/modules/heatmap';
+import HighchartsSunburst from 'highcharts/modules/sunburst';
 
 // Initialisez le module Heatmap
 HighchartsHeatmap(Highcharts);
+
+// Initialisez le module Sunburst
+HighchartsSunburst(Highcharts);
 
 
 
@@ -20,8 +24,11 @@ let C = {};
 
 C.init = function(){
 
-    let se = document.querySelector("#selectYT");
-    se.addEventListener("change", C.handler_changeOnData)
+    let seyt = document.querySelector("#selectYT");
+    seyt.addEventListener("change", C.handler_changeOnYearType)
+
+    let ser = document.querySelector("#selectRoom");
+    ser.addEventListener("change", C.handler_changeOnRoom)
 
 
 
@@ -76,16 +83,15 @@ C.init = function(){
 });
 
 // Itération 2
-C.createStackedBar(M.getRoomByYear())
- 
+C.createStackedBar('it-2', M.getRoomByYear())
+
 // Itération 3
+C.createSunburst('it-3', M.getRessourceByRoom('101'))
 
+}
 
-
-};
-
-C.createStackedBar = function(data){
-    Highcharts.chart('it-2', {
+C.createStackedBar = function(where, data){
+    Highcharts.chart(where, {
         chart: {
             type: 'bar'
         },
@@ -119,18 +125,51 @@ C.createStackedBar = function(data){
       });
 }
 
-C.handler_changeOnData = function(ev){
+
+C.createSunburst = function(where, data){
+    Highcharts.chart(where, {
+        chart: {
+        type: 'sunburst',
+        height: 1000, 
+        width: 1000,
+        events: {
+            click: function(event) {
+            // Gérer l'événement de clic sur le graphique
+            console.log(event.point.name); // Affiche le nom de l'élément cliqué
+            }
+        }
+        },
+        title: {
+        text: 'Utilisation de la salle par semestre, ressources ou SAÉ, et type d\'utilisation'
+        },
+        series: [{
+        type: 'sunburst',
+        data: data
+        }]
+    });
+}
+
+
+C.handler_changeOnYearType = function(ev){
         if(ev.target.value == 'years'){
             let data = M.getRoomByYear()
        
-            C.createStackedBar(data);
+            C.createStackedBar('it-2', data);
         }
 
         if(ev.target.value == 'type'){
             let data = M.getRoomByType()
             
-            C.createStackedBar(data);
+            C.createStackedBar('it-2', data);
         }
+
+}
+
+C.handler_changeOnRoom = function(ev){
+
+    let room = ev.target.value
+    C.createSunburst('it-3', M.getRessourceByRoom(room));
+        
 
 }
 

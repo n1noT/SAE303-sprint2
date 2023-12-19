@@ -222,12 +222,14 @@ M.getAllRessources =function(){
     let allEvents = M.getConcatEvents();
 
     // Utilisation de la méthode map avec un ensemble pour obtenir des valeurs uniques
-    let uniqueRoomNamesSet = new Set(allEvents.map(event => event.ressource));
+    let uniqueResNamesSet = new Set(allEvents.map(event => event.ressource));
   
     // Convertir l'ensemble en tableau si nécessaire
-    let uniqueRoomNamesArray = Array.from(uniqueRoomNamesSet);
+    let uniqueResNamesArray = Array.from(uniqueResNamesSet);
 
-    console.log(uniqueRoomNamesArray)
+    let allRessources  = uniqueResNamesArray.slice(1)
+    
+    return allRessources
 }
 
 M.getRoomByType= function(){
@@ -265,6 +267,102 @@ M.getRoomByType= function(){
     return items
 }
 
+/*
+M.getRessourceByRoom
+
+Fonction qui retourne un tableau d'objet selon le paramètre roomName (nom de la salle)
+
+*/
+
+M.getRessourceByRoom = function(roomName){
+
+    let allEvtsOfRoom = Salles[roomName]
+    
+    let allRessources = M.getAllRessources()
+
+    let type = ['CM', 'TD', 'TP', 'Others']
+    
+    let color = 0;
+    
+    let items = [{
+        id: 'Semestre 1',
+        parent: '',
+        name: 'Semestre 1',
+        value: 100,
+        color:  '#' + color
+      }]
+
+    // heure total pour une salle
+    let totalDurationRoom = 0
+
+    for(let event of allEvtsOfRoom){
+        totalDurationRoom += event.duration.hours
+    }
+
+    for(let res of allRessources){
+        // heure total pour une ressource
+        let totalDurationByRes = 0
+        for(let event of allEvtsOfRoom){
+            if(event.ressource == res){
+                totalDurationByRes += event.duration.hours
+                
+            }
+        }
+
+        let resCoor = {
+            id: res,
+            parent: 'Semestre 1',
+            name: res,
+            value: totalDurationByRes,
+            color: '#' + color
+                    
+        };
+
+        if(totalDurationByRes > 0 && resCoor.parent != null){
+            items.push(resCoor)
+
+        }
+
+
+        
+        for(let t of type){
+            // heure total pour une ressource
+            let totalDurationBytype = 0
+            for(let event of allEvtsOfRoom){
+                if(event.ressource == res){
+                    if(event.type == t){
+                        totalDurationBytype += event.duration.hours
+                        
+                    }
+                }
+                
+            }
+    
+            let typeCoor = {
+                id: t,
+                parent: res,
+                name: t,
+                value: totalDurationBytype,
+                color: '#' + color
+                        
+            };
+    
+            if(totalDurationBytype > 0 && typeCoor.parent != null){
+                items.push(typeCoor)
+
+            }
+    
+            color += 27
+    
+        }
+
+    }
+            
+
+    console.log(items)
+
+    return items
+}
 
 export { M };
 

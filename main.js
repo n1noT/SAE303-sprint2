@@ -83,20 +83,20 @@ C.init = function(){
 });
 
 // Itération 2
-C.createStackedBar('it-2', M.getRoomByYear())
+C.createStackedBar('it-2', M.getRoomByYear(), 'année de formation')
 
 // Itération 3
 C.createSunburst('it-3', M.getRessourceByRoom('101'))
 
 }
 
-C.createStackedBar = function(where, data){
+C.createStackedBar = function(where, data, dataType){
     Highcharts.chart(where, {
         chart: {
             type: 'bar'
         },
         title: {
-            text: 'Volume horaire par année de formation'
+            text: 'Volume horaire par ' + dataType
         },
         xAxis: {
             categories: M.getRoomNames(),
@@ -154,13 +154,13 @@ C.handler_changeOnYearType = function(ev){
         if(ev.target.value == 'years'){
             let data = M.getRoomByYear()
        
-            C.createStackedBar('it-2', data);
+            C.createStackedBar('it-2', data, 'année de formation');
         }
 
         if(ev.target.value == 'type'){
             let data = M.getRoomByType()
             
-            C.createStackedBar('it-2', data);
+            C.createStackedBar('it-2', data, 'type de cours');
         }
 
 }

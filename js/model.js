@@ -12,6 +12,7 @@ let Salles = {
     '101': [],
     '102': [],
     '103': [],
+    '115': [],
     'ADM132': [],
     'R01': [],
     'R02': [],
@@ -217,10 +218,22 @@ M.getRoomByYear = function(){
     return items
 }
 
+M.getAllRessources =function(){
+    let allEvents = M.getConcatEvents();
+
+    // Utilisation de la méthode map avec un ensemble pour obtenir des valeurs uniques
+    let uniqueRoomNamesSet = new Set(allEvents.map(event => event.ressource));
+  
+    // Convertir l'ensemble en tableau si nécessaire
+    let uniqueRoomNamesArray = Array.from(uniqueRoomNamesSet);
+
+    console.log(uniqueRoomNamesArray)
+}
+
 M.getRoomByType= function(){
     let items = []
 
-    let type = ['CM', 'TD', 'TP']
+    let type = ['CM', 'TD', 'TP', 'Others']
 
     //boucle les types
     for(let t of type){

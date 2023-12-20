@@ -187,7 +187,7 @@ C.createHeatMap = function(where, data){
     
     
         title: {
-            text: 'Volume horaire par salle par semaine',
+            text: "Taux d'occupation par salle par semaine (en %)",
             style: {
                 fontSize: '1em'
             }
@@ -229,7 +229,7 @@ C.createHeatMap = function(where, data){
         tooltip: {
             format: 'Semaine <b>{series.xAxis.categories.(point.x)}</b><br>' +
                     '<b>{series.yAxis.categories.(point.y)}</b><br>'+
-                    '<b>{point.value}</b> heures' 
+                    '<b>{point.value}</b> %' 
         },
     
         series: [{

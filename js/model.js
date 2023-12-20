@@ -271,9 +271,9 @@ M.getRoomByType= function(){
 
 function couleurAleatoire() {
     // Générer des valeurs aléatoires pour les composantes RGB
-    var rouge = Math.floor( Math.random() * 80);
-    var vert = Math.floor( Math.random() * 210);
-    var bleu = 225;
+    var rouge = Math.floor( Math.random() * 256);
+    var vert = Math.floor( Math.random() * 256);
+    var bleu = 255;
 
     // Construire la chaîne CSS pour la couleur (format RGB)
     var couleur = "rgb(" + rouge + "," + vert + "," + bleu + ")";
@@ -326,7 +326,6 @@ M.getRessourceByRoom = function(roomName){
         id: roomName,
         parent: '',
         name: roomName,
-        value: 100,
         color:  'rgb(255, 255, 255)'
       }]
 

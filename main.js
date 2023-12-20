@@ -27,7 +27,7 @@ C.init = function(){
     C.createStackedBar('it-2', M.getRoomByYear(), 'année de formation')
 
     // Itération 3
-    C.createSunburst('it-3', M.getRessourceByRoom('101'))
+    C.createSunburst('it-3', M.getRessourceByRoom('101'), window.innerHeight, window.innerWidth/2)
 
     // Itération 4
     C.createHeatMap('it-4', M.getRoomByWeek())
@@ -127,12 +127,14 @@ C.createStackedBar = function(where, data, dataType){
       });
 }
 
-C.createSunburst = function(where, data){
+
+
+C.createSunburst = function(where, data, h, w){
     Highcharts.chart(where, {
         chart: {
         type: 'sunburst',
-        height: 1000, 
-        width: 1000,
+        height: h, 
+        width: w,
         events: {
             click: function(event) {
             // Gérer l'événement de clic sur le graphique

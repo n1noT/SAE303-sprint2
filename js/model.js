@@ -404,9 +404,18 @@ M.getWeeks = function(){
             weeks.push(week)
         }
     }
+    weeks.sort((a, b) => a - b)
 
-    return weeks.sort((a, b) => a - b)
+    let lastWeeks = weeks.slice(0, 6)
+    let firstWeeks = weeks.slice(6, weeks.length)
+    weeks = firstWeeks.concat(lastWeeks)
+
+    return weeks
+
+
+
 }
+
 
 
 M.getRoomByWeek = function(){
@@ -416,8 +425,7 @@ M.getRoomByWeek = function(){
 
 
 
-// Je dois faire une boucle dans le but de filtrer les evenement present dans les différentes salles contenu dans l'objet Salles en retirant les évenments pour lesquelles leur parametre ressource contient "SA"
-
+    // Je dois faire une boucle dans le but de filtrer les evenement present dans les différentes salles contenu dans l'objet Salles en retirant les évenements pour lesquelles leur parametre ressource contient "SA"
 
 
     // Loop through each week

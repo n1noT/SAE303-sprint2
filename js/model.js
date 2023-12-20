@@ -288,6 +288,31 @@ Fonction qui retourne un tableau d'objet selon le paramètre roomName (nom de la
 
 */
 
+
+let getSemester = function(title) {
+
+    let regexp = /^(R|(SA))[EÉ ]{0,2}[1-6](\.Crea)?(\.DWeb-DI)?\.[0-9]{2}/;
+
+    
+    
+    let res = title.match(regexp);
+    
+    
+    if (res!=null){
+    
+    let digit = res[0].match(/[1-6]{1}/);
+    
+    if (digit!=null)
+    
+    return digit[0];
+    
+    }
+    
+    
+    return -1;
+    
+    }
+
 M.getRessourceByRoom = function(roomName){
 
     let allEvtsOfRoom = Salles[roomName]
@@ -298,19 +323,12 @@ M.getRessourceByRoom = function(roomName){
     
     // Initialisation du tableau avec le première item Semestre
     let items = [{
-        id: 'Semestre 1',
+        id: roomName,
         parent: '',
-        name: 'Semestre 1',
+        name: roomName,
         value: 100,
         color:  'rgb(255, 255, 255)'
       }]
-
-    // Heure total pour une salle
-    let totalDurationRoom = 0
-
-    for(let event of allEvtsOfRoom){
-        totalDurationRoom += event.duration.minutes
-    }
 
     for(let res of allRessources){
         // heure total pour une ressource
@@ -322,12 +340,14 @@ M.getRessourceByRoom = function(roomName){
             }
         }
 
+        let semester = getSemester(res)
+
         let resCoor = {
             id: res,
-            parent: 'Semestre 1',
+            parent: 'Semestre ' + semester,
             name: res,
             value: totalDurationByRes/60, // Converti le total en heures
-            color: couleurAleatoire()
+            // color: couleurAleatoire()
                     
         };
 
@@ -370,6 +390,16 @@ M.getRessourceByRoom = function(roomName){
 
     }
         
+    for(let i = 0; i<7 ; i++){
+        let semesterCoor = {
+            id: 'Semestre ' + i,
+            parent: roomName,
+            name: 'Semestre '+ i,
+            color:  couleurAleatoire()
+          }
+
+          items.push(semesterCoor)
+    }
 
     return items
 }

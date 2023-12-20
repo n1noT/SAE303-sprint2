@@ -12,6 +12,7 @@ let Salles = {
     '101': [],
     '102': [],
     '103': [],
+    '115': [],
     'ADM132': [],
     'R01': [],
     'R02': [],
@@ -158,12 +159,12 @@ M.getRoomByHours = function(){
     for(let s in Salles){
         let total = 0
         for(let ev of Salles[s]){
-            total += ev.duration.hours
+            total += ev.duration.minutes
         }
         // Coordonnées de la salle
         let salleCoor = {
             name: s,
-            y: total
+            y: total/60 // Converti le total en heures
         };
 
         items.push(salleCoor);
@@ -174,9 +175,9 @@ M.getRoomByHours = function(){
     return items
 }
 
-M.getRoomNames = function(s) {
+M.getRoomNames = function() {
     let tab = []
-    for( s in Salles ) {
+    for(let s in Salles ) {
         tab.push(s);
     }
     return tab;
@@ -197,12 +198,12 @@ M.getRoomByYear = function(){
             for(let ev of Salles[s]){
                 //Si l'année de l'event corespond à l'année choisi
                 if(ev.year == y){
-                    total += ev.duration.hours
+                    total += ev.duration.minutes
                     
                 }
             } 
             
-            data.push(total)
+            data.push(total/60) // Converti le total en heures
 
         }
         let yearCoor = {
@@ -217,10 +218,24 @@ M.getRoomByYear = function(){
     return items
 }
 
+M.getAllRessources =function(){
+    let allEvents = M.getConcatEvents();
+
+    // Utilisation de la méthode map avec un ensemble pour obtenir des valeurs uniques
+    let uniqueResNamesSet = new Set(allEvents.map(event => event.ressource));
+  
+    // Convertir l'ensemble en tableau si nécessaire
+    let uniqueResNamesArray = Array.from(uniqueResNamesSet);
+
+    let allRessources  = uniqueResNamesArray.slice(1)
+    
+    return allRessources
+}
+
 M.getRoomByType= function(){
     let items = []
 
-    let type = ['CM', 'TD', 'TP']
+    let type = ['CM', 'TD', 'TP', 'Others']
 
     //boucle les types
     for(let t of type){
@@ -232,12 +247,12 @@ M.getRoomByType= function(){
             for(let ev of Salles[s]){
                 //Si le type de l'event correspond au type choisi
                 if(ev.type == t){
-                    total += ev.duration.hours
+                    total += ev.duration.minutes
                     
                 }
             } 
             
-            data.push(total)
+            data.push(total/60) // Converti le total en heures
 
         }
         let typeCoor = {
@@ -248,6 +263,113 @@ M.getRoomByType= function(){
         items.push(typeCoor);
           
     }
+
+    return items
+}
+
+
+
+function couleurAleatoire() {
+    // Générer des valeurs aléatoires pour les composantes RGB
+    var rouge = Math.floor( Math.random() * 80);
+    var vert = Math.floor( Math.random() * 210);
+    var bleu = 225;
+
+    // Construire la chaîne CSS pour la couleur (format RGB)
+    var couleur = "rgb(" + rouge + "," + vert + "," + bleu + ")";
+
+    return couleur;
+}
+
+/*
+M.getRessourceByRoom
+
+Fonction qui retourne un tableau d'objet selon le paramètre roomName (nom de la salle)
+
+*/
+
+M.getRessourceByRoom = function(roomName){
+
+    let allEvtsOfRoom = Salles[roomName]
+    
+    let allRessources = M.getAllRessources()
+
+    let type = ['CM', 'TD', 'TP', 'Others']
+    
+    // Initialisation du tableau avec le première item Semestre
+    let items = [{
+        id: 'Semestre 1',
+        parent: '',
+        name: 'Semestre 1',
+        value: 100,
+        color:  'rgb(255, 255, 255)'
+      }]
+
+    // Heure total pour une salle
+    let totalDurationRoom = 0
+
+    for(let event of allEvtsOfRoom){
+        totalDurationRoom += event.duration.minutes
+    }
+
+    for(let res of allRessources){
+        // heure total pour une ressource
+        let totalDurationByRes = 0
+        for(let event of allEvtsOfRoom){
+            if(event.ressource == res){
+                totalDurationByRes += event.duration.minutes
+                
+            }
+        }
+
+        let resCoor = {
+            id: res,
+            parent: 'Semestre 1',
+            name: res,
+            value: totalDurationByRes/60, // Converti le total en heures
+            color: couleurAleatoire()
+                    
+        };
+
+        
+        if(totalDurationByRes > 0 && resCoor.parent != null){
+            items.push(resCoor)
+
+        }
+
+
+        
+        for(let t of type){
+            // heure total pour une ressource
+            let totalDurationBytype = 0
+            for(let event of allEvtsOfRoom){
+                if(event.ressource == res){
+                    if(event.type == t){
+                        totalDurationBytype += event.duration.minutes
+                        
+                    }
+                }
+                
+            }
+    
+            let typeCoor = {
+                id: t,
+                parent: res,
+                name: t,
+                value: totalDurationBytype/60, // Converti le total en heures
+                        
+            };
+    
+            if(totalDurationBytype > 0 && typeCoor.parent != null){
+                items.push(typeCoor)
+
+            }
+    
+    
+        }
+
+    }
+        
 
     return items
 }
@@ -305,15 +427,15 @@ M.getRoomByWeek = function(){
         // Loop through each room
         for (let roomIndex in rooms) {
             let room = rooms[roomIndex];
-            let totalHours = 0;
+            let totalMinutes = 0;
 
             // Calculate the total hours for the room in the given week
             for (let ev of Salles[room]) {
                 if (ev.start.getWeek().toString() === week) {
-                    totalHours += ev.duration.hours;
+                    totalMinutes += ev.duration.minutes;
                 }
             }
-            totalHours = totalHours/45*100;
+            let totalHours = (totalMinutes/60)/45*100;
 
             // Push the data point for the week and room
             data.push([parseInt(weekIndex), parseInt(roomIndex), Math.round(totalHours)]);

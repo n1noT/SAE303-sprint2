@@ -2,9 +2,14 @@ import { M } from "./js/model.js";
 // import { V } from "./js/view.js";
 
 import Highcharts from 'highcharts';
+import HighchartsSunburst from 'highcharts/modules/sunburst';
 import HighchartsHeatmap from 'highcharts/modules/heatmap';
 
+// Initialisez le module Heatmap
 HighchartsHeatmap(Highcharts);
+
+// Initialisez le module Sunburst
+HighchartsSunburst(Highcharts);
    
 
 // loadind data (and wait for it !)
@@ -16,23 +21,29 @@ let C = {};
 
 
 C.init = function(){
-    C.createChart();
-    C.createChart2(M.getRoomByYear())
-    C.createChart4();
+    //Itération 1 
+    C.createChart('it-1', M.getRoomByHours());
+    // Itération 2
+    C.createStackedBar('it-2', M.getRoomByYear(), 'année de formation')
 
-    let se = document.querySelector("#selectYT");
-    se.addEventListener("change", C.handler_changeOnData)
+    // Itération 3
+    C.createSunburst('it-3', M.getRessourceByRoom('101'))
+
+    // Itération 4
+    C.createHeatMap('it-4', M.getRoomByWeek())
+
+    let seyt = document.querySelector("#selectYT");
+    seyt.addEventListener("change", C.handler_changeOnYearType)
+
+    let ser = document.querySelector("#selectRoom");
+    ser.addEventListener("change", C.handler_changeOnRoom)
+
 };
 
 
-C.createChart = function(){
-
-
-
-
-
+C.createChart = function(where, data){
   // Itération 1
-  Highcharts.chart('it-1', {
+  Highcharts.chart(where, {
 
     chart: {
         type: 'bar'
@@ -75,19 +86,19 @@ C.createChart = function(){
 
     series: [{
         name: 'Heures',
-        data: M.getRoomByHours(),
+        data: data,
     }]
 
 });
 }
 
-C.createChart2 = function(data){
-    Highcharts.chart('it-2', {
+C.createStackedBar = function(where, data, dataType){
+    Highcharts.chart(where, {
         chart: {
             type: 'bar'
         },
         title: {
-            text: 'Volume horaire par année de formation'
+            text: 'Volume horaire par ' + dataType
         },
         xAxis: {
             categories: M.getRoomNames(),
@@ -116,31 +127,56 @@ C.createChart2 = function(data){
       });
 }
 
-C.handler_changeOnData = function(ev){
-    console.log(ev)
-        if(ev.target.value == 'years'){
-            let data = M.getRoomByYear()
-       
-            C.createChart2(data);
+C.createSunburst = function(where, data){
+    Highcharts.chart(where, {
+        chart: {
+        type: 'sunburst',
+        height: 1000, 
+        width: 1000,
+        events: {
+            click: function(event) {
+            // Gérer l'événement de clic sur le graphique
+            console.log(event.point.name); // Affiche le nom de l'élément cliqué
+            }
         }
+        },
+        title: {
+        text: 'Utilisation de la salle par semestre, ressources ou SAÉ, et type d\'utilisation'
+        },
+        series: [{
+        type: 'sunburst',
+        data: data
+        }]
+    });
+}
 
-        if(ev.target.value == 'type'){
-            let data = M.getRoomByType()
-            
-            C.createChart2(data);
-        }
+C.handler_changeOnYearType = function(ev){
+    if(ev.target.value == 'years'){
+        let data = M.getRoomByYear()
+   
+        C.createStackedBar('it-2', data, 'année de formation');
+    }
+
+    if(ev.target.value == 'type'){
+        let data = M.getRoomByType()
+        
+        C.createStackedBar('it-2', data, 'type de cours');
+    }
+
+}
+
+C.handler_changeOnRoom = function(ev){
+
+    let room = ev.target.value
+    C.createSunburst('it-3', M.getRessourceByRoom(room));
+        
 
 }
 
 
 
-
-
-
-
-
-C.createChart4 = function(){
-    Highcharts.chart('it-4', {
+C.createHeatMap = function(where, data){
+    Highcharts.chart(where, {
 
         chart: {
             type: 'heatmap',
@@ -199,7 +235,7 @@ C.createChart4 = function(){
         series: [{
             name: 'Sales per employee',
             borderWidth: 1,
-            data: M.getRoomByWeek(),
+            data: data,
             dataLabels: {
                 enabled: true,
                 color: '#000000'

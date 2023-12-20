@@ -423,11 +423,6 @@ M.getRoomByWeek = function(){
     let rooms = M.getRoomNames(); // Get the list of room names
     let data = [];
 
-
-
-    // Je dois faire une boucle dans le but de filtrer les evenement present dans les différentes salles contenu dans l'objet Salles en retirant les évenements pour lesquelles leur parametre ressource contient "SA"
-
-
     // Loop through each week
     for (let weekIndex in weeks) {
         let week = weeks[weekIndex];
@@ -439,8 +434,9 @@ M.getRoomByWeek = function(){
 
             // Calculate the total hours for the room in the given week
             for (let ev of Salles[room]) {
-                if (ev.start.getWeek().toString() === week) {
+                if (ev.start.getWeek().toString() === week && ev.ressource != null && ev.ressource.includes("SA") == false) {
                     totalMinutes += ev.duration.minutes;
+                    console.log(ev.ressource)
                 }
             }
             let totalHours = (totalMinutes/60)/45*100;

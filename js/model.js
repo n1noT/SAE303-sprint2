@@ -159,12 +159,12 @@ M.getRoomByHours = function(){
     for(let s in Salles){
         let total = 0
         for(let ev of Salles[s]){
-            total += ev.duration.hours
+            total += ev.duration.minutes
         }
         // Coordonnées de la salle
         let salleCoor = {
             name: s,
-            y: total
+            y: total/60 // Converti le total en heures
         };
 
         items.push(salleCoor);
@@ -198,12 +198,12 @@ M.getRoomByYear = function(){
             for(let ev of Salles[s]){
                 //Si l'année de l'event corespond à l'année choisi
                 if(ev.year == y){
-                    total += ev.duration.hours
+                    total += ev.duration.minutes
                     
                 }
             } 
             
-            data.push(total)
+            data.push(total/60) // Converti le total en heures
 
         }
         let yearCoor = {
@@ -247,12 +247,12 @@ M.getRoomByType= function(){
             for(let ev of Salles[s]){
                 //Si le type de l'event correspond au type choisi
                 if(ev.type == t){
-                    total += ev.duration.hours
+                    total += ev.duration.minutes
                     
                 }
             } 
             
-            data.push(total)
+            data.push(total/60) // Converti le total en heures
 
         }
         let typeCoor = {
@@ -309,7 +309,7 @@ M.getRessourceByRoom = function(roomName){
     let totalDurationRoom = 0
 
     for(let event of allEvtsOfRoom){
-        totalDurationRoom += event.duration.hours
+        totalDurationRoom += event.duration.minutes
     }
 
     for(let res of allRessources){
@@ -317,7 +317,7 @@ M.getRessourceByRoom = function(roomName){
         let totalDurationByRes = 0
         for(let event of allEvtsOfRoom){
             if(event.ressource == res){
-                totalDurationByRes += event.duration.hours
+                totalDurationByRes += event.duration.minutes
                 
             }
         }
@@ -326,7 +326,7 @@ M.getRessourceByRoom = function(roomName){
             id: res,
             parent: 'Semestre 1',
             name: res,
-            value: totalDurationByRes,
+            value: totalDurationByRes/60, // Converti le total en heures
             color: couleurAleatoire()
                     
         };
@@ -345,7 +345,7 @@ M.getRessourceByRoom = function(roomName){
             for(let event of allEvtsOfRoom){
                 if(event.ressource == res){
                     if(event.type == t){
-                        totalDurationBytype += event.duration.hours
+                        totalDurationBytype += event.duration.minutes
                         
                     }
                 }
@@ -356,7 +356,7 @@ M.getRessourceByRoom = function(roomName){
                 id: t,
                 parent: res,
                 name: t,
-                value: totalDurationBytype,
+                value: totalDurationBytype/60, // Converti le total en heures
                         
             };
     

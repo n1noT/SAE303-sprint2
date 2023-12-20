@@ -27,7 +27,7 @@ C.init = function(){
     C.createStackedBar('it-2', M.getRoomByYear(), 'année de formation')
 
     // Itération 3
-    C.createSunburst('it-3', M.getRessourceByRoom('101'), window.innerHeight, window.innerWidth/2)
+    C.createSunburst('it-3', M.getRessourceByRoom('101'), window.innerHeight, window.innerWidth/2.5)
 
     // Itération 4
     C.createHeatMap('it-4', M.getRoomByWeek())
@@ -132,6 +132,7 @@ C.createStackedBar = function(where, data, dataType){
 C.createSunburst = function(where, data, h, w){
     Highcharts.chart(where, {
         chart: {
+        
         type: 'sunburst',
         height: h, 
         width: w,
@@ -170,7 +171,7 @@ C.handler_changeOnYearType = function(ev){
 C.handler_changeOnRoom = function(ev){
 
     let room = ev.target.value
-    C.createSunburst('it-3', M.getRessourceByRoom(room), window.innerHeight, window.innerWidth/2);
+    C.createSunburst('it-3', M.getRessourceByRoom(room), window.innerHeight, window.innerWidth/2.5);
         
 
 }

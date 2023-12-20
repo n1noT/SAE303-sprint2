@@ -1,31 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap");
 
-:root{
-    --purple : #2A0940;
-    --purple-secondary: #47137a;
-    --yellow: #EAF205;
-    --light-purple: #9757d6; 
-    --white: #fafafa;
-    --grey: #dfdfdf;
-    --dark-grey: #eeeeee;
-    --darker-grey: rgb(173, 173, 173);
-    --black: #31002b;
+:root {
+  --purple: #2a0940;
+  --purple-secondary: #47137a;
+  --yellow: #eaf205;
+  --light-purple: #9757d6;
+  --white: #fafafa;
+  --grey: #dfdfdf;
+  --dark-grey: #eeeeee;
+  --darker-grey: rgb(173, 173, 173);
+  --black: #31002b;
 
-    --button-bg: var(--grey);
-    --button-bg-hover: var(--purple-secondary);
-    --button-bg-hover-secondary: var(--dark-grey);
-    --button-text: var(--black);
-    --button-text-hover: var(--white);
-    --button-border: var(--black);
+  --button-bg: var(--grey);
+  --button-bg-hover: var(--purple-secondary);
+  --button-bg-hover-secondary: var(--dark-grey);
+  --button-text: var(--black);
+  --button-text-hover: var(--white);
+  --button-border: var(--black);
 
-    --background: var(--white);
+  --background: var(--white);
 
-    --outline : var(--black);
-    
+  --outline: var(--black);
 
-    --ff : 'Outfit';
+  --ff: "Outfit";
 }
-
 
 /* Box sizing rules */
 *,
@@ -70,7 +68,7 @@ body {
 }
 
 /* Remove list styles on ul, ol elements with a class attribute */
-ul{
+ul {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -116,3 +114,49 @@ img:not([alt]) {
   }
 }
 
+.graphs {
+  display: grid;
+  border-radius: 0.8rem;
+  grid-template-areas:
+    "c c c c c a a a a"
+    "c c c c c b b b b"
+    "c c c c c b b b b"
+    "c c c c c b b b b"
+    "d d d d d d d d d"
+    "d d d d d d d d d";
+  backdrop-filter: blur(11.5px);
+  -webkit-backdrop-filter: blur(11.5px);
+  gap: 1.5rem;
+  margin: auto;
+  width: 100%;
+  scale: 0.85;
+}
+
+.graphs-1 {
+  padding: 1rem;
+  border-radius: 0.8rem;
+  grid-area: a;
+  width: 100%;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.graphs-2 {
+  padding: 1rem;
+  border-radius: 0.8rem;
+  grid-area: b;
+  width: 100%;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.graphs-3 {
+  padding: 1rem;
+  border-radius: 0.8rem;
+  grid-area: c;
+  width: 100%;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.graphs-4 {
+  padding: 1rem;
+  border-radius: 0.8rem;
+  grid-area: d;
+  width: 100%;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}

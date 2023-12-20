@@ -170,7 +170,7 @@ C.handler_changeOnYearType = function(ev){
 C.handler_changeOnRoom = function(ev){
 
     let room = ev.target.value
-    C.createSunburst('it-3', M.getRessourceByRoom(room));
+    C.createSunburst('it-3', M.getRessourceByRoom(room), window.innerHeight, window.innerWidth/2);
         
 
 }

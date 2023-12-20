@@ -253,16 +253,80 @@ M.getRoomByType= function(){
 }
 
 
+//Je dois retrouver le numero de la semaine d'un évenement a partir de la date d'un évenement
+
+Date.prototype.getWeek = function() {
+    var date = new Date(this.getTime());
+    date.setHours(0, 0, 0, 0);
+    // Thursday in current week decides the year.
+    date.setDate(date.getDate() + 3 - (date.getDay() + 6) % 7);
+    // January 4 is always in week 1.
+    var week1 = new Date(date.getFullYear(), 0, 4);
+    // Adjust to Thursday in week 1 and count number of weeks from date to week1.
+    return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000
+    - 3 + (week1.getDay() + 6) % 7) / 7);
+}
+
+
+//Visualiser le taux d’occupation de toutes les salles pour toutes les semaines de formation (la semaine est en abscisse et le nom des salles en ordonnée). On doit fournir au tableau de données une liste de coordonnées (x,y) pour chaque salle ainsi que son taux d'occupation par semaine.
+
+M.getWeeks = function(){
+    let weeks = []
+
+    
+
+    for(let ev of M.getConcatEvents()){
+        let week = ev.start.getWeek()
+        week = week.toString();
+        if(weeks.includes(week) == false){
+            weeks.push(week)
+        }
+    }
+
+    return weeks.sort((a, b) => a - b)
+}
+
+
+M.getRoomByWeek = function(){
+    let weeks = M.getWeeks(); // Get the list of weeks
+    let rooms = M.getRoomNames(); // Get the list of room names
+    let data = [];
+
+
+
+// Je dois faire une boucle dans le but de filtrer les evenement present dans les différentes salles contenu dans l'objet Salles en retirant les évenments pour lesquelles leur parametre ressource contient "SA"
+
+
+
+    // Loop through each week
+    for (let weekIndex in weeks) {
+        let week = weeks[weekIndex];
+
+        // Loop through each room
+        for (let roomIndex in rooms) {
+            let room = rooms[roomIndex];
+            let totalHours = 0;
+
+            // Calculate the total hours for the room in the given week
+            for (let ev of Salles[room]) {
+                if (ev.start.getWeek().toString() === week) {
+                    totalHours += ev.duration.hours;
+                }
+            }
+            totalHours = totalHours/45*100;
+
+            // Push the data point for the week and room
+            data.push([parseInt(weekIndex), parseInt(roomIndex), Math.round(totalHours)]);
+        }
+    }
+
+    return data;
+}
+
+
+
+
+
+
 export { M };
 
-
-/*
-    On notera que si tout ce qui est dans ce fichier concerne le modèle, seul ce qui est dans M est exporté (et donc accessible depuis l'extérieur).
-    C'est une façon de faire qui permet de garder privé les données "réelles" qui sont dans Events mais dont la visibilité est limitée à ce module/fichier.
-    Donc il faut voir M comme la partie publique de la vue et le reste comme la partie privée.
-    C'est sensiblement différent de ce qu'on faisait jusqu'à présent où tout était dans l'objet M.
-    L'utilisation des modules javascript nous permet ici de choisir ce que l'on veut rendre public ou privé.
-    C'est une autre façon d'implémenter le concept d'encapsulation sans avoir à utiliser les classes.
-    A noter qu'on aurait pu faire une classe "Model" mais dans la mesure où l'on n'aurait qu'une seule instance de Model, ce n'est pas vraiment utile.
-    
-*/

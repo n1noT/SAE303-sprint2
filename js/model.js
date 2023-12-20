@@ -436,7 +436,6 @@ M.getRoomByWeek = function(){
             for (let ev of Salles[room]) {
                 if (ev.start.getWeek().toString() === week && ev.ressource != null && ev.ressource.includes("SA") == false) {
                     totalMinutes += ev.duration.minutes;
-                    console.log(ev.ressource)
                 }
             }
             let totalHours = (totalMinutes/60)/45*100;

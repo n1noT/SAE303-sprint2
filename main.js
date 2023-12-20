@@ -260,8 +260,6 @@ C.createHeatMap = function(where, data){
     });
 }
 
-console.log(M.getRoomNames())
-console.log(M.getWeeks())
-console.log(M.getRoomByWeek())
+
 
 C.init()

@@ -99,13 +99,6 @@ M.filterEventsByText = function (input) {
     return structuredClone(res);
 }
 
-M.getRoomByHours = function(){
-    let allEvents = M.getConcatEvents()
-
-    for(let event of allEvents){
-
-    }
-}
 /*
 
 M.getSalle
@@ -119,7 +112,6 @@ M.getSalle = function(s) {
         return Salles[s];
     }
     return null;
-
 }
 
 

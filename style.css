@@ -62,6 +62,7 @@ html {
 /* Set core body defaults */
 body {
   min-height: 100vh;
+  width: 100%;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
   font-family: var(--ff);
@@ -118,18 +119,14 @@ img:not([alt]) {
   display: grid;
   border-radius: 0.8rem;
   grid-template-areas:
-    "c c c c c a a a a"
-    "c c c c c b b b b"
-    "c c c c c b b b b"
-    "c c c c c b b b b"
-    "d d d d d d d d d"
-    "d d d d d d d d d";
+    "c c c c c a"
+    "c c c c c b"
+    "d d d d d d";
   backdrop-filter: blur(11.5px);
   -webkit-backdrop-filter: blur(11.5px);
   gap: 1.5rem;
-  margin: auto;
-  width: 100%;
-  scale: 0.85;
+  margin: 3rem;
+  max-width: 100%;
 }
 
 .graphs-1 {
@@ -159,4 +156,10 @@ img:not([alt]) {
   grid-area: d;
   width: 100%;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+h1 {
+  width: 100%;
+  text-align: center;
+  padding: 2rem;
 }

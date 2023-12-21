@@ -26,8 +26,10 @@ C.init = function(){
     // Itération 2
     C.createStackedBar('it-2', M.getRoomByYear(), 'année de formation')
 
+    let section = document.querySelector(".graphs-3")
+
     // Itération 3
-    C.createSunburst('it-3', M.getRessourceByRoom('101'), window.innerHeight, window.innerWidth/2.5)
+    C.createSunburst('it-3', M.getRessourceByRoom('101'), window.innerHeight, section.innerWidth)
 
     // Itération 4
     C.createHeatMap('it-4', M.getRoomByWeek())
@@ -64,7 +66,7 @@ C.createChart = function(where, data){
     },
 
     title: {
-        text: 'Heures de cours par salle'
+        text: 'Heures de cours par salle (en heures)'
     },
 
     tooltip: {
@@ -98,7 +100,7 @@ C.createStackedBar = function(where, data, dataType){
             type: 'bar'
         },
         title: {
-            text: 'Volume horaire par ' + dataType
+            text: 'Volume horaire par ' + dataType + ' (en heures)'
         },
         xAxis: {
             categories: M.getRoomNames(),
@@ -144,7 +146,7 @@ C.createSunburst = function(where, data, h, w){
         }
         },
         title: {
-        text: 'Utilisation de la salle par semestre, ressources ou SAÉ, et type d\'utilisation'
+        text: 'Utilisation de la salle par semestre, ressources ou SAÉ, et type d\'utilisation (en heures)'
         },
         series: [{
         type: 'sunburst',
@@ -171,7 +173,9 @@ C.handler_changeOnYearType = function(ev){
 C.handler_changeOnRoom = function(ev){
 
     let room = ev.target.value
-    C.createSunburst('it-3', M.getRessourceByRoom(room), window.innerHeight, window.innerWidth/2.5);
+    let section = document.querySelector(".graphs-3")
+
+    C.createSunburst('it-3', M.getRessourceByRoom(room), window.innerHeight, section.innerWidth);
         
 
 }
